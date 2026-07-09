@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import GiftModal from '@/components/giftModal.vue'
 import { useAdventCalendar } from '@/hooks/useAdventCalendar'
@@ -22,12 +22,12 @@ const closeModal = () => {
   clearError()
 }
 
-const closeError = () => {
-  clearError()
-}
-
 const goBack = () => {
   router.push('/')
+}
+
+const goToRules = () => {
+  router.push('/rules')
 }
 
 function getSizeClass(day: number) {
@@ -58,6 +58,16 @@ onMounted(() => {
       </VCol>
       <VCol class="text-center flex-grow-1">
         <h1>Адвент-календарь</h1>
+      </VCol>
+      <VCol cols="auto">
+        <VBtn
+          variant="text"
+          color="white"
+          class="back-btn"
+          @click="goToRules"
+        >
+          Правила
+        </VBtn>
       </VCol>
     </VRow>
     
