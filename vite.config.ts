@@ -9,8 +9,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vuetify({ autoImport: true }),
-    base: '/AdvProj/'
   ],
+  base: '/AdvProj/'
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
