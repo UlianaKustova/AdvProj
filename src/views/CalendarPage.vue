@@ -27,7 +27,7 @@ const goBack = () => {
 }
 
 const goToRules = () => {
-  router.push('/rules')
+  router.push({ path: '/rules', query: { from: 'calendar' } })
 }
 
 function getSizeClass(day: number) {

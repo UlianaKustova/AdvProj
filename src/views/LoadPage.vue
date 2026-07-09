@@ -37,8 +37,7 @@ onMounted(() => {
 })
 
 const goToNext = () => {
-  // router.push('/calendar')
-  router.push('/rules')
+  router.replace('/rules')
 }
 
 const progressPercent = computed(() => {

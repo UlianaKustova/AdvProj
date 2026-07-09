@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { computed } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
+const fromCalendar = computed(() => route.query.from === 'calendar')
 
 const rules = [
   { icon: 'mdi-calendar', text: 'Заходи каждый день и открывай новый подарок' },
@@ -15,7 +18,11 @@ const goToCalendar = () => {
 }
 
 const goBack = () => {
-  router.push('/')
+  if (route.query.from === 'calendar') {
+    router.push('/calendar')
+  } else {
+    router.push('/')
+  }
 }
 </script>
 
@@ -65,6 +72,7 @@ const goBack = () => {
               Назад
             </VBtn>
             <VBtn
+              v-if="!fromCalendar"
               variant="flat"
               @click="goToCalendar"
               class="text-none"
