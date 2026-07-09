@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     vuetify({ autoImport: true }),
   ],
-  base: '/AdvProj/'
+  base: '/AdvProj/'// тест
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
