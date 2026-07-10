@@ -87,22 +87,20 @@ const dialogModel = computed({
   }
 
   .modal-title {
-    font-size: 42px !important;
-    margin-bottom: 8px !important;
+    font-size: 1.5rem !important;   /* было 42px */
   }
 
   .modal-gift {
-    font-size: 34px !important;
-    padding: 24px 14px !important;
-    border-width: 4px !important;
-    border-radius: 24px !important;
+    font-size: 1.1rem !important;   /* было 34px */
+    padding: 16px 12px !important;
   }
 
   .text-body-1 {
-    font-size: 1.3rem !important;
+    font-size: 1rem !important;
   }
+
   .text-body-2 {
-    font-size: 1.15rem !important;
+    font-size: 0.9rem !important;
   }
 
   .close-btn {
@@ -114,5 +112,10 @@ const dialogModel = computed({
   .v-card-text {
     padding: 32px 18px 24px !important;
   }
+
+  :deep(.v-overlay__content) {
+  margin: 12px !important;
+  max-width: calc(100vw - 24px) !important;
+}
 }
 </style>

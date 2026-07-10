@@ -110,15 +110,6 @@ const progressPercent = computed(() => {
   box-shadow: 0 20px 60px rgba(241, 241, 241, 0.16);
 }
 
-.title {
-  font-weight: 700;
-  font-size: 3rem;
-  color: #ffffff;
-  margin-bottom: 40px;
-  letter-spacing: 2px;
-  position: relative;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -197,19 +188,19 @@ const progressPercent = computed(() => {
   }
 
   .content {
-    padding: 20px 12px !important;
+    padding: 16px 10px !important;
     border-radius: 20px !important;
     max-width: 100% !important;
   }
 
   .grid {
-    max-width: 140px !important;
+    max-width: 180px !important;
     gap: 8px !important;
     margin: 0 auto 12px !important;
   }
 
   .square {
-    border-radius: 1px !important;
+    border-radius: 8px !important;
     aspect-ratio: 1 / 1 !important;
   }
 

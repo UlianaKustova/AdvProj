@@ -27,7 +27,7 @@ const goBack = () => {
 </script>
 
 <template>
-  <VContainer fluid fill-height class="rules-page" style="min-height: 100vh;">
+  <VContainer fluid fill-height class="rules-page " style="min-height: 100vh;">
     <VRow align="center" justify="center" style="width: 100%;">
       <VCol cols="12" sm="8" md="6" lg="5">
         <VCard
@@ -96,5 +96,37 @@ const goBack = () => {
 
 .rules-card {
   backdrop-filter: blur(10px);
+}
+
+@media (max-width: 360px) {
+  .rules-page {
+    padding: 8px !important;
+  }
+  .rules-card {
+    margin: 0 !important;
+  }
+
+  .rules-card :deep(.v-card-title) {
+    font-size: 1.25rem !important;
+    padding-top: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .rules-card :deep(.v-list-item-title) {
+    font-size: 0.95rem !important;
+  }
+
+  .rules-card :deep(.v-list-item__prepend) {
+    margin-right: 8px !important;
+  }
+
+  .rules-card :deep(.v-card-actions) {
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding-bottom: 1rem !important;
+  }
+  .rules-card :deep(.v-btn) {
+    width: 100% !important;
+  }
 }
 </style>

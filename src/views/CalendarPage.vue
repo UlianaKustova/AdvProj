@@ -30,14 +30,6 @@ const goToRules = () => {
   router.push({ path: '/rules', query: { from: 'calendar' } })
 }
 
-function getSizeClass(day: number) {
-  if (day === 1) return 'size-big'
-  if (day % 7 === 0) return 'size-big'
-  if (day % 5 === 0) return 'size-wide'
-  if (day % 3 === 0) return 'size-tall'
-  return 'size-small'
-}
-
 onMounted(() => {
   loadState()
 })
@@ -45,8 +37,7 @@ onMounted(() => {
 
 <template>
   <VContainer fluid class="calendar-page pa-4">
-    <VRow class="header mb-6">
-      <VCol cols="auto">
+    <div class="header mb-6 mt-6">
         <VBtn
           variant="text"
           color="white"
@@ -55,11 +46,7 @@ onMounted(() => {
         >
           Назад
         </VBtn>
-      </VCol>
-      <VCol class="text-center flex-grow-1">
         <h1>Адвент-календарь</h1>
-      </VCol>
-      <VCol cols="auto">
         <VBtn
           variant="text"
           color="white"
@@ -68,25 +55,24 @@ onMounted(() => {
         >
           Правила
         </VBtn>
-      </VCol>
-    </VRow>
+    </div>
     
     <ErrorMessage v-model="errorMessage" />
 
     <div class="calendar-grid">
       <VCard
-        v-for="gift in gifts"
-        :key="gift.day"
-        :class="[
-          'gift-card',
-          getSizeClass(gift.day),
-          { opened: gift.isOpen, closed: !gift.isOpen }
-        ]"
-        :elevation="gift.isOpen ? 4 : 2"
-        :variant="gift.isOpen ? 'elevated' : 'flat'"
-        :color="gift.isOpen ? 'yellow-lighten-5' : 'transparent'"
-        @click="openGift(gift.day)"
-      >
+		  v-for="gift in gifts"
+		  :key="gift.day"
+		  :class="[
+			'gift-card',
+			{ opened: gift.isOpen, closed: !gift.isOpen }
+		  ]"
+		  :style="{ gridArea: `day_${gift.day}` }"
+		  :elevation="gift.isOpen ? 4 : 2"
+		  :variant="gift.isOpen ? 'elevated' : 'flat'"
+		  :color="gift.isOpen ? 'yellow-lighten-5' : 'transparent'"
+		  @click="openGift(gift.day)"
+		>
         <template v-if="!gift.isOpen">
           <span class="day-number">{{ gift.day }}</span>
           <VIcon size="36" color="white" class="gift-icon">mdi-gift</VIcon>
@@ -116,25 +102,21 @@ onMounted(() => {
 }
 
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
+  gap: 0.5rem;
   width: 100%;
   max-width: 700px;
   margin-bottom: 4rem;
   color: white;
-  gap: 1rem;
-  position: relative;
 }
-
 .header h1 {
-  font-size: 1.8rem;
+  font-size: clamp(1rem, 4.5vw, 1.8rem);
   margin: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
+  line-height: 1.2;
+  min-width: 0;
 }
 
 .back-btn {
@@ -167,7 +149,15 @@ onMounted(() => {
   max-width: 700px;
   width: 100%;
   margin: 0 auto;
-  grid-auto-flow: dense;
+  grid-template-areas:
+    "day_1 day_1 day_2 day_3 day_4"
+    "day_5 day_5 day_6 day_7 day_8"
+    "day_9 day_10 day_11 day_12 day_8"
+    "day_13 day_14 day_15 day_16 day_17"
+    "day_13 day_18 day_18 day_19 day_20"
+    "day_21 day_22 day_23 day_24 day_25"
+    "day_26 day_26 day_26 day_27 day_28"
+    "day_29 day_29 day_30 day_30 day_30";
 }
 
 .gift-card {
@@ -222,15 +212,6 @@ onMounted(() => {
   word-break: break-word;
 }
 
-.size-wide,
-.size-big {
-  grid-column: span 2;
-}
-.size-tall,
-.size-small {
-  grid-column: span 1;
-}
-
 @media (max-width: 360px) {
   .calendar-page {
     padding: 0.25rem !important;
@@ -254,9 +235,20 @@ onMounted(() => {
 
   .calendar-grid {
     grid-template-columns: repeat(3, 1fr) !important;
-    grid-auto-rows: 110px !important;
+    grid-template-rows: repeat(10, 110px) !important;
     gap: 0.6rem !important;
     max-width: 100% !important;
+    grid-template-areas:
+      "day_1 day_2 day_3"
+      "day_4 day_5 day_6"
+      "day_7 day_8 day_9"
+      "day_10 day_11 day_12"
+      "day_13 day_14 day_15"
+      "day_16 day_17 day_18"
+      "day_19 day_20 day_21"
+      "day_22 day_23 day_24"
+      "day_25 day_26 day_27"
+      "day_28 day_29 day_30" !important;
   }
 
   .gift-card {
@@ -288,15 +280,6 @@ onMounted(() => {
 
   .gift-icon {
     font-size: 42px !important;
-  }
-
-  .size-wide,
-  .size-big {
-    grid-column: span 2 !important;
-  }
-  .size-tall,
-  .size-small {
-    grid-column: span 1 !important;
   }
 
   .header .v-col {

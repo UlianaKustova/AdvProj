@@ -7,7 +7,7 @@
     variant="flat"
     class="error-snackbar"
   >
-    <span class="error-message-text text-h6" color="white">{{ modelValue }}</span>
+    <span class="error-message-text error-message-text" color="white">{{ modelValue }}</span>
 
     <template #actions>
       <VBtn
@@ -41,3 +41,17 @@ const isVisible = computed({
   }
 })
 </script>
+
+<style scoped>
+@media (max-width: 360px) {
+  .error-snackbar :deep(.v-snackbar__wrapper) {
+    max-width: calc(100vw - 16px) !important;
+    margin: 8px !important;
+  }
+  .error-message-text {
+    font-size: 0.9rem !important;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+}
+</style>
