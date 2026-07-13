@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import Snowfall from "@/components/Snowfall.vue";
+import Snowfall from "@/components/snowfallEffect.vue";
 </script>
 
 <template>
