@@ -88,6 +88,7 @@ export function useAdventCalendar() {
     errorMessage,
     loadState,
     openGift,
-    clearError
+    clearError,
+    canOpen,
   }
 }

@@ -25,13 +25,13 @@ const dialogModel = computed({
   <VDialog v-model="dialogModel" max-width="500">
     <template v-slot:default="{ isActive }">
       <VCard class="rounded-card">
-          <VIconBtn
+          <VBtn
             class="close-btn"
             icon="mdi-close"
             color="grey-darken-3"
             variant="text"
             @click="isActive.value = false"
-          ></VIconBtn>
+          ></VBtn>
         
         <VCardText class="text-center pb-6">
           <p class="modal-title mb-1">Поздравляю!</p>
@@ -87,11 +87,11 @@ const dialogModel = computed({
   }
 
   .modal-title {
-    font-size: 1.5rem !important;   /* было 42px */
+    font-size: 1.5rem !important;
   }
 
   .modal-gift {
-    font-size: 1.1rem !important;   /* было 34px */
+    font-size: 1.1rem !important;
     padding: 16px 12px !important;
   }
 
