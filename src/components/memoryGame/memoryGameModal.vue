@@ -19,6 +19,9 @@ const {
   matchedPairs,
   totalCards,
   isWon,
+  isLost,
+  health,
+  maxHealth,
   resetGame,
   flipCard,
 } = useMemoryGame()
@@ -60,13 +63,23 @@ watch(isWon, (won) => {
       </div>
 
       <p class="text-body-2 mb-2">
-        День {{ day }} — найди все пары, чтобы открыть подарок
+        День {{ day }} — найди все пары, чтобы открыть подарок. Будь внимателен и осторожен, не потрать все здоровье!
       </p>
 
       <div class="stats mb-4">
         <span>Открыто: {{ openedCount }} / {{ totalCards }}</span>
         <span>Пары: {{ matchedPairs }} / {{ totalCards / 2 }}</span>
         <span>Ходы: {{ moves }}</span>
+        <span>Здоровье: </span>
+        <span class="health">
+          <VIcon
+            v-for="i in maxHealth"
+            :key="i"
+            :icon="i <= health ? 'mdi-heart' : 'mdi-heart-outline'"
+            size="20"
+            color="red"
+          />
+        </span>
       </div>
 
       <div class="memory-grid">
@@ -89,6 +102,17 @@ watch(isWon, (won) => {
           <span v-else>?</span>
         </button>
       </div>
+
+      <div v-if="isLost" class="lost-overlay">
+        <div class="lost-content">
+          <h3>Вы проиграли!</h3>
+          <p>Попробуйте ещё раз</p>
+          <div class="lost-buttons">
+            <VBtn @click="resetGame" style="background: white; color: rgb(27, 163, 115);">Заново</VBtn>
+            <VBtn variant="text" @click="emit('close')">Выйти</VBtn>
+          </div>
+        </div>
+      </div>
     </VCard>
   </VDialog>
 </template>
@@ -96,6 +120,7 @@ watch(isWon, (won) => {
 <style scoped>
 .memory-game-card {
   border-radius: 24px;
+  position: relative;
 }
 
 .stats {
@@ -103,6 +128,12 @@ watch(isWon, (won) => {
   flex-wrap: wrap;
   gap: 12px;
   font-size: 0.95rem;
+  align-items: center;
+}
+
+.health {
+  display: flex;
+  gap: 2px;
 }
 
 .memory-grid {
@@ -130,5 +161,38 @@ watch(isWon, (won) => {
   border-color: #ffd700;
   background: #fff8dc;
   cursor: default;
+}
+
+.lost-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.lost-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 80%;
+}
+
+.lost-content h3 {
+  margin-bottom: 0.5rem;
+}
+
+.lost-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 1rem;
 }
 </style>

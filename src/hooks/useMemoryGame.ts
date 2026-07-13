@@ -5,6 +5,8 @@ export function useMemoryGame() {
   const cards = ref<GameCard[]>([])
   const moves = ref(0)
   const isLocked = ref(false)
+  const health = ref(6)
+  const maxHealth = 6
 
   const shuffleCards = (array: MemoryPair[]): MemoryPair[] => {
     const res = [...array]
@@ -27,9 +29,12 @@ export function useMemoryGame() {
     cards.value.length > 0 && cards.value.every((c) => c.isMatched)
   )
 
+  const isLost = computed(() => health.value <= 0)
+
   function resetGame() {
     moves.value = 0
     isLocked.value = false
+    health.value = maxHealth
 
     cards.value = shuffleCards([...symbols, ...symbols]).map((card, index) => ({
       ...card,
@@ -49,7 +54,7 @@ export function useMemoryGame() {
   }
 
   async function flipCard(uid: number) {
-    if (isLocked.value || isWon.value) return
+    if (isLocked.value || isWon.value || isLost.value) return
 
     const card = cards.value.find((c) => c.uid === uid)
     if (!card || card.isMatched || card.isFlipped) return
@@ -69,8 +74,12 @@ export function useMemoryGame() {
         card.isMatched = true
         isLocked.value = false
       } else {
+        health.value = Math.max(0, health.value - 1)
         await new Promise((resolve) => setTimeout(resolve, 700))
         flipBack()
+        if (isLost.value) {
+          isLocked.value = true
+        }
       }
     }
   }
@@ -82,6 +91,9 @@ export function useMemoryGame() {
     matchedPairs,
     totalCards,
     isWon,
+    isLost,
+    health,
+    maxHealth,
     resetGame,
     flipCard,
   }
