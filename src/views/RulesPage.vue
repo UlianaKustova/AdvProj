@@ -9,14 +9,17 @@ const fromCalendar = computed(() => route.query.from === "calendar");
 const rules = [
   {
     icon: "mdi-calendar",
-    text: "Заходи каждый день, играй и открывай новый подарок",
+    text: "Заходи каждый день, выигрывай и открывай новый подарок",
   },
   { icon: "mdi-gift", text: "Каждый день тебя ждёт уникальный сюрприз" },
   {
     icon: "mdi-timer-sand",
     text: "Не пропусти ни одного дня — подарки не повторяются!",
   },
-  { icon: "mdi-arm-flex", text: "Получи подарок и наслаждайся праздником" },
+  {
+    icon: "mdi-arm-flex",
+    text: "Сыграй, получи подарок и наслаждайся праздником",
+  },
 ];
 
 const goToCalendar = () => {
