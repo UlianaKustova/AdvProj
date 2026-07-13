@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView } from "vue-router";
 </script>
 
 <template>
@@ -7,11 +7,17 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style>
-
-html, body {
+html,
+body {
   height: 100%;
   background: rgb(27, 163, 115);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 #app {

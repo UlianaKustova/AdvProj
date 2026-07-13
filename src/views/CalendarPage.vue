@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import GiftModal from '@/components/giftModal.vue'
-import { useAdventCalendar } from '@/hooks/useAdventCalendar'
-import ErrorMessage from '@/components/errors/errorMessage.vue'
-import MemoryGameModal from '@/components/memoryGame/memoryGameModal.vue'
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import GiftModal from "@/components/giftModal.vue";
+import { useAdventCalendar } from "@/hooks/useAdventCalendar";
+import ErrorMessage from "@/components/errors/errorMessage.vue";
+import MemoryGameModal from "@/components/memoryGame/memoryGameModal.vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const {
   gifts,
@@ -17,85 +17,72 @@ const {
   errorMessage,
   clearError,
   canOpen,
-} = useAdventCalendar()
+} = useAdventCalendar();
 
-const isGameOpen = ref(false)
-const pendingDay = ref<number | null>(null)
+const isGameOpen = ref(false);
+const pendingDay = ref<number | null>(null);
 const onGiftClick = (day: number) => {
-  const gift = gifts.value.find((g) => g.day === day)
-  if (!gift || gift.isOpen) return
-  if (!canOpen(day)) return
-  pendingDay.value = day
-  isGameOpen.value = true
-}
+  const gift = gifts.value.find((g) => g.day === day);
+  if (!gift || gift.isOpen) return;
+  if (!canOpen(day)) return;
+  pendingDay.value = day;
+  isGameOpen.value = true;
+};
 
 const closeGameModal = () => {
-  isGameOpen.value = false
-  pendingDay.value = null
-}
+  isGameOpen.value = false;
+  pendingDay.value = null;
+};
 
 const closeModal = () => {
-  isModalOpen.value = false
-  clearError()
-  closeGameModal()
-}
+  isModalOpen.value = false;
+  clearError();
+  closeGameModal();
+};
 
 const goBack = () => {
-  router.push('/')
-}
+  router.push("/");
+};
 
 const goToRules = () => {
-  router.push({ path: '/rules', query: { from: 'calendar' } })
-}
+  router.push({ path: "/rules", query: { from: "calendar" } });
+};
 
 onMounted(() => {
-  loadState()
-})
+  loadState();
+});
 
 const onGameSuccess = () => {
-  if (pendingDay.value === null) return
-  openGift(pendingDay.value)
-}
+  if (pendingDay.value === null) return;
+  openGift(pendingDay.value);
+};
 </script>
 
 <template>
   <VContainer fluid class="calendar-page pa-4">
     <div class="header mb-6 mt-6">
-        <VBtn
-          variant="text"
-          color="white"
-          class="back-btn"
-          @click="goBack"
-        >
-          Назад
-        </VBtn>
-        <h1>Адвент-календарь</h1>
-        <VBtn
-          variant="text"
-          color="white"
-          class="back-btn"
-          @click="goToRules"
-        >
-          Правила
-        </VBtn>
+      <VBtn variant="text" color="white" class="back-btn" @click="goBack">
+        Назад
+      </VBtn>
+      <h1>Адвент-календарь</h1>
+      <VBtn variant="text" color="white" class="back-btn" @click="goToRules">
+        Правила
+      </VBtn>
     </div>
-    
+
     <ErrorMessage v-model="errorMessage" />
 
     <div class="calendar-grid">
       <VCard
-		  v-for="gift in gifts"
-		  :key="gift.day"
-		  :class="[
-			'gift-card',
-			{ opened: gift.isOpen, closed: !gift.isOpen }
-		  ]"
-		  :style="{ gridArea: `day_${gift.day}` }"
-		  :elevation="gift.isOpen ? 4 : 2"
-		  :variant="gift.isOpen ? 'elevated' : 'flat'"
-		  :color="gift.isOpen ? 'yellow-lighten-5' : 'transparent'"
-		  @click="onGiftClick(gift.day)"
-		>
+        v-for="gift in gifts"
+        :key="gift.day"
+        :class="['gift-card', { opened: gift.isOpen, closed: !gift.isOpen }]"
+        :style="{ gridArea: `day_${gift.day}` }"
+        :elevation="gift.isOpen ? 4 : 2"
+        :variant="gift.isOpen ? 'elevated' : 'flat'"
+        :color="gift.isOpen ? 'yellow-lighten-5' : 'transparent'"
+        @click="onGiftClick(gift.day)"
+      >
         <template v-if="!gift.isOpen">
           <span class="day-number">{{ gift.day }}</span>
           <VIcon size="36" color="white" class="gift-icon">mdi-gift</VIcon>
@@ -241,7 +228,6 @@ const onGameSuccess = () => {
   word-break: break-word;
 }
 
-
 @media (max-width: 575.98px) {
   .calendar-page {
     padding: 0.25rem;
@@ -254,7 +240,7 @@ const onGameSuccess = () => {
 
   .calendar-page .header h1 {
     font-size: 1.6rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
 
   .calendar-page .back-btn {
@@ -288,18 +274,18 @@ const onGameSuccess = () => {
   }
 
   .calendar-page .gift-card.closed {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
   }
 
   .calendar-page .gift-card.opened {
-    background: rgba(255,215,0,0.2);
+    background: rgba(255, 215, 0, 0.2);
   }
 
   .calendar-page .day-number {
     font-size: 14px;
     top: 4px;
     right: 6px;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .calendar-page .gift-name {

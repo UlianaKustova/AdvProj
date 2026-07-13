@@ -1,45 +1,44 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps<{
-  isOpen: boolean
-  giftName: string
-  day: number
-}>()
+  isOpen: boolean;
+  giftName: string;
+  day: number;
+}>();
 
 const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+  (e: "close"): void;
+}>();
 
 const dialogModel = computed({
   get: () => props.isOpen,
   set: (value) => {
     if (!value) {
-      emit('close')
+      emit("close");
     }
-  }
-})
+  },
+});
 </script>
 
 <template>
   <VDialog v-model="dialogModel" max-width="500">
     <template v-slot:default="{ isActive }">
       <VCard class="rounded-card">
-          <VBtn
-            class="close-btn"
-            icon="mdi-close"
-            color="grey-darken-3"
-            variant="text"
-            @click="isActive.value = false"
-          ></VBtn>
-        
+        <VBtn
+          class="close-btn"
+          icon="mdi-close"
+          color="grey-darken-3"
+          variant="text"
+          @click="isActive.value = false"
+        ></VBtn>
+
         <VCardText class="text-center pb-6">
           <p class="modal-title mb-1">Поздравляю!</p>
           <p class="text-body-1 mt-0 mb-4">
-            Вы открыли <strong>день {{ day }}</strong>!
+            Вы открыли <strong>день {{ day }}</strong
+            >!
           </p>
-
-
 
           <div class="modal-gift pa-4 mb-4">
             {{ giftName }}
@@ -50,7 +49,6 @@ const dialogModel = computed({
     </template>
   </VDialog>
 </template>
-
 
 <style scoped>
 .rounded-card {
@@ -72,7 +70,7 @@ const dialogModel = computed({
 
 .modal-gift {
   background: #f0f8f0;
-  border: 2px dashed #4CAF50;
+  border: 2px dashed #4caf50;
   border-radius: 16px;
   font-size: 24px;
   color: #2e7d32;
@@ -114,8 +112,8 @@ const dialogModel = computed({
   }
 
   :deep(.v-overlay__content) {
-  margin: 12px !important;
-  max-width: calc(100vw - 24px) !important;
-}
+    margin: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+  }
 }
 </style>

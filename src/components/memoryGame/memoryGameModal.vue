@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
-import { useMemoryGame } from '@/hooks/useMemoryGame'
+import { computed, watch } from "vue";
+import { useMemoryGame } from "@/hooks/useMemoryGame";
 
 const props = defineProps<{
-  isOpen: boolean
-  day: number
-}>()
+  isOpen: boolean;
+  day: number;
+}>();
 
 const emit = defineEmits<{
-  (e: 'close'): void
-  (e: 'success'): void
-}>()
+  (e: "close"): void;
+  (e: "success"): void;
+}>();
 
 const {
   cards,
@@ -24,54 +24,49 @@ const {
   maxHealth,
   resetGame,
   flipCard,
-} = useMemoryGame()
+} = useMemoryGame();
 
 const dialogModel = computed({
   get: () => props.isOpen,
   set: (value) => {
-    if (!value) emit('close')
+    if (!value) emit("close");
   },
-})
+});
 
 watch(
   () => props.isOpen,
   (open) => {
-    if (open) resetGame()
-  }
-)
+    if (open) {
+      resetGame(props.day);
+    }
+  },
+  { immediate: true },
+);
 
 watch(isWon, (won) => {
-  if (won) emit('success')
-})
+  if (won) emit("success");
+});
 </script>
 
 <template>
-  <VDialog
-    v-model="dialogModel"
-    max-width="560"
-    :z-index="2000"
-    persistent
-  >
+  <VDialog v-model="dialogModel" max-width="560" :z-index="2000" persistent>
     <VCard class="memory-game-card pa-4">
       <div class="d-flex justify-space-between align-center mb-4">
         <h2 class="text-h6 font-weight-bold">Игра на память</h2>
-        <VBtn
-          icon="mdi-close"
-          variant="text"
-          @click="emit('close')"
-        />
+        <VBtn icon="mdi-close" variant="text" @click="emit('close')" />
       </div>
 
       <p class="text-body-2 mb-2">
-        День {{ day }} — найди все пары, чтобы открыть подарок. Будь внимателен и осторожен, не потрать все здоровье!
+        День {{ day }} — найди все пары, чтобы открыть подарок. Будь внимателен
+        и осторожен, не потрать все здоровье!
       </p>
 
       <div class="stats mb-4">
         <span>Открыто: {{ openedCount }} / {{ totalCards }}</span>
         <span>Пары: {{ matchedPairs }} / {{ totalCards / 2 }}</span>
         <span>Ходы: {{ moves }}</span>
-        <span>Здоровье: </span>
         <span class="health">
+          <span>Здоровье: </span>
           <VIcon
             v-for="i in maxHealth"
             :key="i"
@@ -108,7 +103,11 @@ watch(isWon, (won) => {
           <h3>Вы проиграли!</h3>
           <p>Попробуйте ещё раз</p>
           <div class="lost-buttons">
-            <VBtn @click="resetGame" style="background: white; color: rgb(27, 163, 115);">Заново</VBtn>
+            <VBtn
+              style="background: white; color: rgb(27, 163, 115)"
+              @click="resetGame(day)"
+              >Заново</VBtn
+            >
             <VBtn variant="text" @click="emit('close')">Выйти</VBtn>
           </div>
         </div>

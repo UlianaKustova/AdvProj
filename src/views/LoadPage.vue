@@ -1,78 +1,72 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, computed } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+const loading = ref(true);
+const currentIndex = ref(-1);
 
-const router = useRouter()
-const loading = ref(true)
-const currentIndex = ref(-1)
+const totalSquares = 9;
+const filledSquares = ref<boolean[]>(Array(totalSquares).fill(false));
 
-const totalSquares = 9
-const filledSquares = ref<boolean[]>(Array(totalSquares).fill(false))
-
-const snakeOrder = [
-  0, 1, 2,
-  3, 4, 5,
-  6, 7, 8
-]
+const snakeOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 onMounted(() => {
-  let index = 0
-  
+  let index = 0;
+
   const interval = setInterval(() => {
     if (index < snakeOrder.length) {
-      const squareIndex = snakeOrder[index]
-    if (squareIndex !== undefined && squareIndex < filledSquares.value.length) {
-        filledSquares.value[squareIndex] = true
-        currentIndex.value = index
-    }
-      index++
+      const squareIndex = snakeOrder[index];
+      if (
+        squareIndex !== undefined &&
+        squareIndex < filledSquares.value.length
+      ) {
+        filledSquares.value[squareIndex] = true;
+        currentIndex.value = index;
+      }
+      index++;
     } else {
-      clearInterval(interval)
+      clearInterval(interval);
       setTimeout(() => {
-        loading.value = false
-      }, 400)
+        loading.value = false;
+      }, 400);
     }
-  }, 600)
-})
+  }, 600);
+});
 
 const goToNext = () => {
-  router.replace('/rules')
-}
+  router.replace("/rules");
+};
 
 const progressPercent = computed(() => {
-  const filled = filledSquares.value.filter(Boolean).length
-  return Math.round((filled / totalSquares) * 100)
-})
+  const filled = filledSquares.value.filter(Boolean).length;
+  return Math.round((filled / totalSquares) * 100);
+});
 </script>
 
 <template>
   <div class="load-page">
-    
     <div class="content">
-      
       <div class="grid-wrapper" v-if="loading">
         <div class="grid">
-          <div 
-            v-for="(filled, index) in filledSquares" 
+          <div
+            v-for="(filled, index) in filledSquares"
             :key="index"
             class="square"
-            :class="{ 
-              'filled': filled,
-              'current': !filled && currentIndex >= 0 && index === snakeOrder[currentIndex + 1]
+            :class="{
+              filled: filled,
+              current:
+                !filled &&
+                currentIndex >= 0 &&
+                index === snakeOrder[currentIndex + 1],
             }"
-          >
-          </div>
+          ></div>
         </div>
         <p class="loading-text">Загрузка... {{ progressPercent }}%</p>
       </div>
 
       <transition name="fade">
-        <button 
-          v-if="!loading" 
-          class="next-btn"
-          @click="goToNext"
-        >
+        <button v-if="!loading" class="next-btn" @click="goToNext">
           Дальше
         </button>
       </transition>
@@ -130,7 +124,7 @@ const progressPercent = computed(() => {
 }
 
 .square.filled {
-  background: #FFF44F;
+  background: #fff44f;
   transform: scale(1.05);
 }
 

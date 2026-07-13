@@ -1,34 +1,40 @@
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { useRouter, useRoute } from "vue-router";
+import { computed } from "vue";
 
-const router = useRouter()
-const route = useRoute()
-const fromCalendar = computed(() => route.query.from === 'calendar')
+const router = useRouter();
+const route = useRoute();
+const fromCalendar = computed(() => route.query.from === "calendar");
 
 const rules = [
-  { icon: 'mdi-calendar', text: 'Заходи каждый день и открывай новый подарок' },
-  { icon: 'mdi-gift', text: 'Каждый день тебя ждёт уникальный сюрприз' },
-  { icon: 'mdi-timer-sand', text: 'Не пропусти ни одного дня — подарки не повторяются!' },
-  { icon: 'mdi-arm-flex', text: 'Получи подарок и наслаждайся праздником' },
-]
+  {
+    icon: "mdi-calendar",
+    text: "Заходи каждый день, играй и открывай новый подарок",
+  },
+  { icon: "mdi-gift", text: "Каждый день тебя ждёт уникальный сюрприз" },
+  {
+    icon: "mdi-timer-sand",
+    text: "Не пропусти ни одного дня — подарки не повторяются!",
+  },
+  { icon: "mdi-arm-flex", text: "Получи подарок и наслаждайся праздником" },
+];
 
 const goToCalendar = () => {
-  router.push('/calendar')
-}
+  router.push("/calendar");
+};
 
 const goBack = () => {
-  if (route.query.from === 'calendar') {
-    router.push('/calendar')
+  if (route.query.from === "calendar") {
+    router.push("/calendar");
   } else {
-    router.push('/')
+    router.push("/");
   }
-}
+};
 </script>
 
 <template>
-  <VContainer fluid fill-height class="rules-page " style="min-height: 100vh;">
-    <VRow align="center" justify="center" style="width: 100%;">
+  <VContainer fluid fill-height class="rules-page" style="min-height: 100vh">
+    <VRow align="center" justify="center" style="width: 100%">
       <VCol cols="12" sm="8" md="6" lg="5">
         <VCard
           class="rules-card"
@@ -36,7 +42,9 @@ const goBack = () => {
           rounded="xl"
           color="rgb(22, 132, 94)"
         >
-          <VCardTitle class="text-h4 font-weight-bold text-center text-white pt-6">
+          <VCardTitle
+            class="text-h4 font-weight-bold text-center text-white pt-6"
+          >
             🎄 Правила адвент-календаря
           </VCardTitle>
 
@@ -48,11 +56,20 @@ const goBack = () => {
                 class="px-0"
               >
                 <template #prepend>
-                  <VIcon :icon="rule.icon" color="white" size="28" class="ml-4" />
+                  <VIcon
+                    :icon="rule.icon"
+                    color="white"
+                    size="28"
+                    class="ml-4"
+                  />
                 </template>
                 <VListItemTitle
                   class="text-white"
-                  style="font-size: 1.1rem; white-space: normal; word-break: break-word;"
+                  style="
+                    font-size: 1.1rem;
+                    white-space: normal;
+                    word-break: break-word;
+                  "
                 >
                   {{ rule.text }}
                 </VListItemTitle>
@@ -78,7 +95,7 @@ const goBack = () => {
               class="text-none"
               rounded="pill"
               size="large"
-              style="background: white; color: rgb(27, 163, 115);"
+              style="background: white; color: rgb(27, 163, 115)"
             >
               Начать!
             </VBtn>

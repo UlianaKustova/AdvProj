@@ -7,7 +7,9 @@
     variant="flat"
     class="error-snackbar"
   >
-    <span class="error-message-text error-message-text" color="white">{{ modelValue }}</span>
+    <span class="error-message-text error-message-text" color="white">{{
+      modelValue
+    }}</span>
 
     <template #actions>
       <VBtn
@@ -21,25 +23,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps<{
-  modelValue: string | null
-  timeout?: number
-}>()
+  modelValue: string | null;
+  timeout?: number;
+}>();
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: null): void
-}>()
+  (e: "update:modelValue", value: null): void;
+}>();
 
 const isVisible = computed({
   get: () => !!props.modelValue,
   set: (val) => {
     if (!val) {
-      emit('update:modelValue', null)
+      emit("update:modelValue", null);
     }
-  }
-})
+  },
+});
 </script>
 
 <style scoped>
