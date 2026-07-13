@@ -111,7 +111,7 @@ const onGameSuccess = () => {
 <style scoped>
 .calendar-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, rgb(19, 107, 76), rgb(23, 136, 96));
+  /* background: linear-gradient(135deg, rgb(19, 107, 76), rgb(23, 136, 96)); */
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+import Snowfall from "@/components/Snowfall.vue";
 </script>
 
 <template>
-  <RouterView />
+  <Snowfall />
+  <div class="app-content">
+    <RouterView />
+  </div>
 </template>
 
 <style>
@@ -23,5 +27,10 @@ body {
 #app {
   min-height: 100vh;
   background: rgb(27, 163, 115);
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
 }
 </style>
