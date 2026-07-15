@@ -3,7 +3,7 @@ import {
   symbols,
   type MemoryPair,
   type GameCard,
-} from "@/data/memoryGameCards";
+} from "@/entities/card/memoryGameCards";
 
 interface Difficulty {
   pairs: number;
