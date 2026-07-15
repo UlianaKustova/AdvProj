@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { calendarGifts } from "@/data/calendarData";
+import { calendarGifts } from "@/entities/gift/calendarData";
 
 const STORAGE_KEY = "123";
 const COOLDOWN_SECONDS = 30;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch } from "vue";
-import { useMemoryGame } from "@/hooks/useMemoryGame";
+import { useMemoryGame } from "@/features/memory-game/useMemoryGame";
 
 const props = defineProps<{
   isOpen: boolean;

@@ -6,17 +6,17 @@ const router = createRouter({
     {
       path: "/",
       name: "load",
-      component: () => import("../views/LoadPage.vue"),
+      component: () => import("../../pages/load/LoadPage.vue"),
     },
     {
       path: "/rules",
       name: "rules",
-      component: () => import("../views/RulesPage.vue"),
+      component: () => import("../../pages/rules/RulesPage.vue"),
     },
     {
       path: "/calendar",
       name: "calendar",
-      component: () => import("../views/CalendarPage.vue"),
+      component: () => import("../../pages/calendar/CalendarPage.vue"),
     },
   ],
 });

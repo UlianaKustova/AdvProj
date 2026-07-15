@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import GiftModal from "@/components/giftModal.vue";
-import { useAdventCalendar } from "@/hooks/useAdventCalendar";
-import ErrorMessage from "@/components/errors/errorMessage.vue";
-import MemoryGameModal from "@/components/memoryGame/memoryGameModal.vue";
+import GiftModal from "@/widgets/gift-modal/giftModal.vue";
+import { useAdventCalendar } from "@/features/advent-calendar/useAdventCalendar";
+import ErrorMessage from "@/shared/errors/errorMessage.vue";
+import MemoryGameModal from "@/widgets/memory-game/memoryGameModal.vue";
 
 const router = useRouter();
 
